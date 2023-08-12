@@ -7,7 +7,7 @@ import {getAllCats, getCatById, createCat, updateCat } from "../controllers/cats
 const catsRouter = Router()
 
 catsRouter.get("/cats", getAllCats)
-catsRouter.get("/catsq:id", getCatById)
+catsRouter.get("/cats/:id", getCatById)
 catsRouter.post("/cats" , validateSchema(catSchema), createCat)
 catsRouter.put("/cats/:id", validateAuth, updateCat)
 

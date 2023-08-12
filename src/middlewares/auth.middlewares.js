@@ -1,4 +1,5 @@
 import { getSessionDB } from "../repositories/auth.repositories.js"
+
 export async function validateAuth(req, res, next) {
 
     const { authorization } = req.headers
