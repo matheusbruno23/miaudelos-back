@@ -1,12 +1,7 @@
 import { db } from "../database/db.connection.js";
 
 export function getAllCatsDB(){
-   return db.query(`SELECT cats.*, 
-   array_agg(cats_photos.photo_url) AS photo_urls
-   FROM cats
-   LEFT JOIN cats_photos ON cats.id = cats_photos.cat_id
-   WHERE cats.active = true
-   GROUP BY cats.id;
+   return db.query(`SELECT * FROM cats WHERE active= true;
    `)
 }
 
