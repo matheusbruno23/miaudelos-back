@@ -14,12 +14,11 @@ export function getCatByIdDB(id){
     return db.query(`SELECT * FROM cats WHERE id=$1;`, [id])
 }
 
-export function createCatDB(user_id, name , characteristics , contact_info , active){
+export function createCatDB(owner_id, name , characteristics , contact_info , active, photo_urls){
     return db.query(`
-    INSERT INTO cats (user_id, name , characteristics , contact_info , active)
-    VALUES ($1, $2, $3, $4, $5)
-    RETURNING id, name , characteristics, contact_info;`,
-    [user_id, name, characteristics , contact_info, active])
+    INSERT INTO cats (owner_id, name , characteristics , contact_info , active)
+    VALUES ($1, $2, $3, $4, $5);`,
+    [owner_id, name, characteristics , contact_info, active])
 }
 
 export function updateCatDB(id, status, owner_id){

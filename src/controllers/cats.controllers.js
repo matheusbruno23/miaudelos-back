@@ -32,11 +32,25 @@ export async function getCatById(req, res){
 export async function createCat(req, res){
 
     const {user_id} = res.locals
-    const {name , characteristics, contact_info, active} = req.body
+    const {name , characteristics, contact_info, active, photo_urls} = req.body 
 
     try {
         const createdCat = await createCatDB(user_id, name , characteristics , contact_info , active)
-        return res.status(201).send(createdCat.rows[0])
+
+        const cat_id =  createdCat.rows[0].id
+
+        for(const photo_url of photo_urls) {
+            await db.query(`INSERT INTO cats_photos (cat_id , photo_url) VALUES ($1, $2);`, [cat_id, photo_url])
+        }
+
+        const catPhotos = await db.query(`
+        SELECT cats.* , cats_photos.photo_url 
+        FROM cats LEFT JOIN cats_photos ON cats.id = cats_photos.cat_id WHERE cats.id = $1;`, [cat_id])
+
+        const resObject = {catInfo: createdCat.rows[0], photosUrls: catPhotos.rows.map(r =>  r.photo_url)}
+
+        return res.status(201).send(resObject)
+
     } catch (error) {
         return res.status(500).send(error.message)
     }
