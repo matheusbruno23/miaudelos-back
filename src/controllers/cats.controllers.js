@@ -15,7 +15,7 @@ export async function getAllCats(req, res){
 
 export async function getCatById(req, res){
 
-    const {id} = req.body
+    const {id} = req.params
 
     try {
 
