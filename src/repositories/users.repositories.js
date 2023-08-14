@@ -11,3 +11,7 @@ export function createUserDB(name, email, password, cpf , phone){
 export function getUserByIdDB(id){
     return db.query(`SELECT * FROM users WHERE id=$1;`, [id])
 }
+
+export function getCatsByUserIdDB(user_id){
+    return db.query(`SELECT * FROM cats WHERE user_id=$1;`, [user_id])
+}

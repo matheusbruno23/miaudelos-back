@@ -8,7 +8,7 @@ const catsRouter = Router()
 
 catsRouter.get("/cats", getAllCats)
 catsRouter.get("/cats/:id", getCatById)
-catsRouter.post("/cats" , validateSchema(catSchema), createCat)
+catsRouter.post("/cats" , validateAuth, validateSchema(catSchema), createCat)
 catsRouter.put("/cats/:id", validateAuth, updateCat)
 
 export default catsRouter
