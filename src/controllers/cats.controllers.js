@@ -47,12 +47,17 @@ export async function createCat(req, res){
 export async function updateCat(req, res){
     const {id} = req.params
     const {active} = req.body
-    try {
+        try {
 
         const cat = await getCatByIdDB(id)
         if(cat.rowCount === 0) return res.sendStatus(404)
         const owner = await getUserByIdDB(cat.rows[0].owner_id)
         if(owner.rowCount === 0) return res.sendStatus(404)
+        
+        if(cat.rows[0].active === true) {
+            active = false
+        } else { active = true
+        }
         const updatedCat = await updateCatDB(active , id)
 
         return res.status(200).send(updatedCat)

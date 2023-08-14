@@ -13,7 +13,7 @@ export function createCatDB(owner_id, name , characteristics , contact_info , ac
     return db.query(`
     INSERT INTO cats (owner_id, name , characteristics , contact_info , active, photo_url)
     VALUES ($1, $2, $3, $4, $5m $6);`,
-    [owner_id, name, characteristics , contact_info, active, photo_url])
+    [owner_id, name, characteristics , contact_info, true, photo_url])
 }
 
 export function updateCatDB(id, status, owner_id){
